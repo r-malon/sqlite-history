@@ -3,6 +3,7 @@
 Track changes to SQLite tables using triggers
 
 This is a Go port of [simonw's sqlite-history](github.com/simonw/sqlite-history), quickly ported from Python with Claude Sonnet help.
+
 For more on this project: [sqlite-history: tracking changes to SQLite tables using triggers](https://simonwillison.net/2023/Apr/15/sqlite-history/)
 
 ## Installation
