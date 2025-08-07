@@ -47,20 +47,20 @@ END;
     for column in columns:
         update_columns.append(
             """
-        CASE WHEN old.{column} != new.{column} then new.{column} else null end""".format(
+        CASE WHEN old.{column} IS NOT new.{column} then new.{column} else null end""".format(
                 column=escape_sqlite(column)
             )
         )
     update_columns_sql = ", ".join(update_columns)
     mask_sql = " + ".join(
-        """(CASE WHEN old.{column} != new.{column} then {base} else 0 end)""".format(
+        """(CASE WHEN old.{column} IS NOT new.{column} then {base} else 0 end)""".format(
             column=escape_sqlite(column),
             base=2**idx,
         )
         for idx, column in enumerate(columns)
     )
     where_sql = " or ".join(
-        "old.{column} != new.{column}".format(column=escape_sqlite(column))
+        "old.{column} IS NOT new.{column}".format(column=escape_sqlite(column))
         for column in columns
     )
     update_trigger = """
